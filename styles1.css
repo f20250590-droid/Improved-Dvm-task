@@ -1,0 +1,1177 @@
+/* --- Global Styles and Variables --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+    color: #172b4d;
+}
+
+/* Define variables for consistent alignment */
+:root {
+    --nav-padding-x: 24px;
+    --max-content-width: 1280px;
+}
+
+/* Header Styles */
+header {
+    background: white;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 102; /* Ensures header is above the dropdown (101) */
+}
+
+.banner {
+    background: linear-gradient(135deg, #e3f2fd, #f0f4ff);
+    padding: 16px var(--nav-padding-x);
+    text-align: center;
+    border-bottom: 1px solid #dfe1e6;
+    position: relative;
+}
+
+.banner-text {
+    color: #172b4d;
+    font-size: 16px;
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+    font-weight: 400;
+}
+
+.banner-link {
+    color: #0079bf;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.banner-link:hover {
+    text-decoration: underline;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: var(--max-content-width); /* Constrain the main nav content */
+    margin: 0 auto;
+    /* Use the variable for consistent horizontal padding */
+    padding: 12px var(--nav-padding-x); 
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.atlassian-text {
+    font-size: 10px;
+    color: #5e6c84;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #172b4d;
+    text-decoration: none;
+}
+
+.logo-icon {
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #0079bf, #0065a0);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    list-style: none;
+}
+
+.nav-links a, .nav-dropdown-toggle {
+    color: #172b4d;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 3px;
+    transition: background 0.2s;
+    font-weight: 400;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-links a:hover, .nav-dropdown-toggle:hover {
+    background: #f4f5f7;
+}
+
+.dropdown-arrow {
+    font-size: 12px;
+    transition: transform 0.2s;
+}
+
+.nav-item.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.nav-item.active .nav-dropdown-toggle {
+    background: #f4f5f7;
+}
+
+/* --- Dropdown Menu Styles (FULL WIDTH FIX) --- */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    /* Key for full width: Stretch to entire viewport */
+    left: 0;
+    right: 0;
+    
+    background: white;
+    /* Only round the bottom corners */
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.22);
+    padding: 0; /* Content padding is now handled by the wrapper */
+    display: none;
+    margin-top: 0; /* Attach directly to the nav bottom */
+    z-index: 101; 
+    border-top: 1px solid #e6e6e6; /* Separator from nav */
+    min-width: unset; /* Override previous fixed width */
+}
+
+.nav-item.active .dropdown-menu {
+    display: block;
+}
+
+/* **THE ALIGNMENT FIX** - Content Wrapper to constrain content and center it */
+.dropdown-content-wrapper {
+    /* Calculate max width: Main content width + (2 * Nav padding) */
+    max-width: calc(var(--max-content-width) + (2 * var(--nav-padding-x))); 
+    
+    /* Auto margins center the block element, aligning it to the center of the viewport */
+    margin: 0 auto; 
+    
+    /* Use the nav's padding here to align the inner content with the nav's inner content edges */
+    padding: 32px var(--nav-padding-x) 40px; 
+}
+
+
+.dropdown-header {
+    font-size: 13px;
+    color: #5e6c84;
+    margin-bottom: 24px;
+    font-weight: 600;
+}
+
+/* NEW: Layout for menus with a sidebar */
+.dropdown-layout {
+    display: grid;
+    grid-template-columns: 3fr 1.5fr; /* Adjusted ratio for a more prominent main content */
+    gap: 40px;
+}
+
+/* Base grid for the link items */
+.dropdown-grid {
+    display: grid;
+    gap: 24px 20px; /* Vertical and horizontal gap */
+}
+
+/* Specific grids for Features/Solutions (for example) */
+.views-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.core-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.solutions-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+
+/* Dropdown Item styles (UPDATED FOR FLEX LAYOUT) */
+.dropdown-item {
+    padding: 12px 16px; 
+    border-radius: 6px;
+    transition: background 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: flex; /* Use flex to align icon and text */
+    align-items: flex-start;
+    gap: 16px; /* Space between icon and text */
+}
+
+.dropdown-item:hover {
+    background: #f4f5f7;
+}
+
+/* Icon styling for the visual effect */
+.dropdown-item-icon {
+    font-size: 24px; 
+    margin-bottom: 0; 
+    display: block;
+    width: 30px; 
+    text-align: center;
+    flex-shrink: 0; 
+}
+.dropdown-item svg {
+    height: 1.2rem;
+    width: auto;
+}
+
+.dropdown-item h3 {
+    font-size: 18px; 
+    color: #172b4d;
+    margin-bottom: 4px;
+    font-weight: 600; /* Bolder heading */
+}
+
+.dropdown-item p {
+    font-size: 14px;
+    color: #5e6c84;
+    line-height: 1.4;
+}
+
+/* Header for group titles within a dropdown */
+.dropdown-group-title {
+    font-size: 12px;
+    color: #5e6c84;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    padding-left: 16px; 
+}
+
+/* Plans Item - Overrides the icon/flex style */
+.plans-item {
+    align-items: flex-start;
+    gap: 0;
+    flex-direction: column;
+    padding: 16px;
+}
+
+.plans-item h3 {
+    font-weight: 600;
+}
+
+.plans-item p {
+    margin-top: 4px;
+}
+
+
+.dropdown-footer {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e6e6e6;
+}
+
+.dropdown-footer a {
+    color: #0052cc;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.dropdown-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Sidebar for Resources, Features, Plans */
+.dropdown-sidebar {
+    background: #f4f5f7;
+    border-radius: 8px;
+    padding: 32px; /* Increased padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
+
+.dropdown-sidebar-content h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #172b4d;
+    font-weight: 600;
+}
+
+.dropdown-sidebar-content p {
+    font-size: 14px;
+    color: #5e6c84;
+    margin-bottom: 16px;
+}
+
+.dropdown-sidebar-content a {
+    display: inline-block;
+    padding: 10px 20px;
+    background: white;
+    color: #172b4d;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    border: 1px solid #dfe1e6;
+    transition: background 0.2s;
+    text-align: center;
+    width: 100%;
+}
+
+.dropdown-sidebar-content a:hover {
+    background: #e6e6e6;
+}
+
+/* Nav Button and Overlay Styles */
+.nav-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    border: none;
+    white-space: nowrap;
+}
+
+.btn-login {
+    background: white;
+    color: #172b4d;
+    border: 1px solid #dfe1e6;
+}
+
+.btn-login:hover {
+    background: #f4f5f7;
+}
+
+.btn-signup {
+    background: #0052cc;
+    color: white;
+}
+
+.btn-signup:hover {
+    background: #0065ff;
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 102;
+    
+}
+
+.hamburger span {
+    width: 24px;
+    height: 2px;
+    background: #172b4d;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.dropdown-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1); 
+    display: none;
+    z-index: 99;
+}
+
+.dropdown-overlay.active {
+    display: block;
+}
+
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.mobile-menu {
+    display: none;
+    background: white;
+    padding: 20px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-top: 1px solid #e6e6e6;
+    z-index: 101;
+}
+
+.mobile-menu.active {
+    display: block;
+}
+
+.mobile-menu a {
+    display: block;
+    color: #172b4d;
+    padding: 12px 0;
+    text-decoration: none;
+    font-size: 16px;
+    border-bottom: 1px solid #f4f5f7;
+}
+
+.mobile-menu .btn {
+    display: block;
+    text-align: center;
+    margin: 12px 0;
+}
+
+/* Hero Section */
+.hero {
+    background: #f5f6f8;
+    padding: 80px var(--nav-padding-x);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    /* Adjust padding to align with the nav container */
+    padding-left: 60px; /* This was a custom style, keeping it */
+    padding-right: 0; /* Handled by the container's padding */
+}
+
+.hero-text h1 {
+    font-size: 48px;
+    line-height: 1.2;
+    color: #172b4d;
+    margin-bottom: 24px;
+    font-weight: 600;
+}
+
+.hero-text p {
+    font-size: 18px;
+    color: rgb(9, 30, 66);
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.signup-form {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.email-input {
+    flex: 1;
+    padding: 12px 14px;
+    border: 2px solid #dfe1e6;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.email-input:focus {
+    outline: none;
+    border-color: #0079bf;
+}
+
+.btn-submit {
+    padding: 12px 24px;
+    background: #0079bf;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.btn-submit:hover {
+    background: #026aa7;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,121,191,0.3);
+}
+
+.privacy-text {
+    font-size: 15px !important;
+    color: rgb(9, 30, 66) !important;
+}
+
+.privacy-link {
+    color: #0079bf;
+    text-decoration: none;
+}
+
+.privacy-link:hover {
+    text-decoration: underline;
+}
+
+.video-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #0079bf;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 20px;
+    transition: gap 0.2s;
+}
+
+.video-link:hover {
+    gap: 12px;
+}
+
+.play-icon {
+    width: 32px;
+    height: 32px;
+    background: #0079bf;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* Hero Video Section */
+.hero-video {
+    position: relative;
+    perspective: 1000px;
+}
+
+.video-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-video video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 20px;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 100%);
+    pointer-events: none;
+}
+
+/* Trello 101 Section */
+.trello-101 {
+    padding: 80px var(--nav-padding-x);
+    background: white;
+}
+
+.section-container {
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+}
+
+.section-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #172b4d;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+}
+
+.section-title {
+    font-size: 36px;
+    font-weight: 600;
+    color: #172b4d;
+    margin-bottom: 24px;
+}
+
+.section-description {
+    font-size: 18px;
+    color: #5e6c84;
+    margin-bottom: 60px;
+    max-width: 800px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+}
+
+.feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: 400px; 
+}
+
+.feature-item {
+    border-left: 4px solid transparent;
+    padding-left: 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding-right: 12px; 
+}
+
+.feature-item.active {
+    border-left-color: #0052cc;
+    background: #f4f5f7; 
+    border-radius: 4px;
+}
+
+.feature-item h3 {
+    font-size: 20px;
+    color: #172b4d;
+    margin-bottom: 12px;
+}
+
+.feature-item p {
+    font-size: 16px;
+    color: #5e6c84;
+    line-height: 1.5;
+}
+
+/* Feature Visual/Carousel */
+.feature-visual {
+    background: #f4f5f7;
+    border-radius: 8px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column; 
+    position: relative;
+    overflow: hidden; 
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* Track that slides */
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-out; /* Keep a smooth slide transition */
+}
+
+/* Each slide image */
+.carousel-track img {
+    min-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+/* Carousel Dots Styles */
+.carousel-controls {
+    margin-top: 32px; /* Space between carousel image and dots */
+    text-align: center;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background: #dfe1e6; /* Inactive color */
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    flex-shrink: 0;
+}
+
+.dot.active {
+    background: #0052cc; /* Active color */
+    width: 12px;
+    height: 12px;
+    transform: scale(1.1);
+}
+
+
+/* Blue Section */
+.blue-section {
+    background: #0052cc;
+    padding: 80px 40px; /* Using a fallback padding */
+    /* padding: 80px var(--nav-padding-x); */ /* Your original padding is fine too */
+    color: white;
+}
+
+.blue-section .section-title {
+    color: white;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.blue-section .section-description {
+    color: rgba(255,255,255,0.9);
+    text-align: center;
+    margin: 0 auto 60px;
+    max-width: 600px; /* Good practice for centered text */
+}
+
+/* --- NEW/MODIFIED STYLES --- */
+
+/* MODIFIED: This class is now a flex container that stacks
+  the two feature-blocks vertically and adds space between them.
+*/
+.integration-showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 40px; /* This creates space BETWEEN the two white boxes */
+}
+
+/* NEW: This is the style for EACH of the two white boxes.
+  This is where the 2-column grid layout is defined.
+*/
+.feature-block {
+    background: white;
+    border-radius: 12px;
+    padding: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    color: #172b4d; /* Reset color for white box content */
+}
+
+/* MODIFIED: Styles now apply to the new .feature-text class 
+*/
+.feature-text h3 {
+    font-size: 14px;
+    color: #5e6c84;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.feature-text p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #172b4d;
+    margin: 0;
+}
+
+/* MODIFIED: Renamed from .intimg img to .feature-image img
+  and made responsive.
+*/
+.feature-image img {
+    width: 100%; /* Makes the image fit its grid column */
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+/* NOTE: All your other CSS (.email-card, .inbox-column, etc.) 
+  was not used in the HTML you provided, so I've left it out here. 
+  You can keep it in your file if it's for other parts of the page.
+*/
+
+/* Work Smarter Section */
+.work-smarter {
+    background: white;
+    padding: 80px var(--nav-padding-x);
+}
+
+.features-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.feature-card h3 {
+    font-size: 24px;
+    color: #172b4d;
+    margin-bottom: 16px;
+}
+
+.feature-card p {
+    color: #5e6c84;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.feature-link {
+    color: #0052cc;
+    text-decoration: none;
+    font-weight: 500;
+    border: 2px solid #0052cc;
+    padding: 10px 20px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+/* Testimonial Section */
+.testimonial {
+    background: #f4f5f7;
+    padding: 80px var(--nav-padding-x);
+}
+
+.testimonial-container {
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.testimonial-quote {
+    font-size: 24px;
+    line-height: 1.5;
+    color: #172b4d;
+    margin-bottom: 32px;
+}
+
+.stat-box {
+    background: #0052cc;
+    color: white;
+    padding: 60px;
+    border-radius: 12px;
+}
+
+.stat-box h2 {
+    font-size: 42px;
+    line-height: 1.3;
+    margin-bottom: 24px;
+}
+
+/* Logos Section */
+.logos-section {
+    background: white;
+    padding: 80px var(--nav-padding-x);
+    text-align: center;
+}
+
+.logos-text {
+    font-size: 18px;
+    color: #5e6c84;
+    margin-bottom: 40px;
+}
+
+/* CTA Section */
+.cta-section {
+    background: #f4f5f7;
+    padding: 80px var(--nav-padding-x);
+    text-align: center;
+}
+
+.cta-section h2 {
+    font-size: 36px;
+    color: #172b4d;
+    margin-bottom: 32px;
+}
+
+.cta-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    gap: 12px;
+}
+
+.cta-form input {
+    flex: 1;
+    padding: 14px 20px;
+    border: 2px solid #dfe1e6;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+.cta-form button {
+    padding: 14px 32px;
+    background: #0052cc;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    background: #172b4d;
+    color: white;
+    padding: 60px var(--nav-padding-x) 24px;
+}
+
+.footer-container {
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.footer-logo-icon {
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #172b4d;
+    font-weight: bold;
+}
+
+.footer-column h4 {
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.footer-column a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.footer-bottom {
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-meta-group {
+    display: flex; 
+    align-items: center; 
+    gap: 40px; 
+    flex-wrap: wrap;
+}
+
+.footer-language {
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    color: white; 
+    font-size: 14px;
+}
+
+.footer-links {
+    display: flex; 
+    gap: 24px; 
+    font-size: 12px;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.8); 
+    text-decoration: none;
+}
+
+.footer-copyright {
+    color: rgba(255,255,255,0.5);
+}
+
+
+.social-icons {
+    display: flex;
+    gap: 16px;
+}
+
+.social-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-content,
+    .integration-showcase,
+    .testimonial-container {
+        grid-template-columns: 1fr;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .features-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    /* On medium screens, let the full-width dropdown take full width, content stays centered */
+    .dropdown-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .dropdown-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .footer-top {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links,
+    .nav-buttons {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .hero-text h1 {
+        font-size: 36px;
+    }
+    
+    .hero-content {
+        padding-left: 0; /* Remove custom padding on mobile */
+    }
+
+    .signup-form,
+    .cta-form {
+        flex-direction: column;
+    }
+    
+    .dropdown-menu {
+        /* On mobile, full-width dropdowns behave like a standard mobile menu */
+        border-radius: 0;
+        box-shadow: none;
+        border-top: 1px solid #e6e6e6;
+    }
+    
+    /* Revert to simple padding on small screens as nav padding also changes */
+    .dropdown-content-wrapper {
+        max-width: 100%;
+        padding: 24px; 
+    }
+
+    .dropdown-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .core-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-top {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Integration Section Mobile Refinements */
+    .integration-showcase {
+        padding: 24px; 
+    }
+    
+    .integration-text {
+        order: -1; /* Move the text content above the visuals on mobile */
+        text-align: center;
+    }
+    
+    .integration-text h3, .integration-text h2 {
+        text-align: center;
+    }
+    
+    .email-card {
+        padding: 16px;
+    }
+
+    .email-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .date {
+        align-self: flex-end; /* Keep the date in a logical spot */
+    }
+    
+    .inbox-item {
+        flex-wrap: wrap; /* Allow items to wrap if needed */
+        gap: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .blue-section {
+        padding: 60px 20px;
+    }
+
+    .feature-block {
+        grid-template-columns: 1fr;
+        
+        padding: 40px 30px;
+
+        gap: 30px;
+    }
+    .feature-text {
+        text-align: center;
+    }
+}
